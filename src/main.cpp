@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cctype>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -93,6 +94,21 @@ public:
         std::string buffer;
 
         while (peek().has_value()) {
+            if (std::isalpha(peek().value())) {
+                buffer.push_back(consume());
+                while (peek().has_value() && std::isalnum(peek().value())) {
+                    buffer.push_back(consume());
+                }
+
+                if (exist(buffer)) {
+
+                } else {
+                    std::cerr << "Error lexico con " << std::endl;
+                    exit(EXIT_FAILURE);
+                }
+
+            } else if (std::isdigit(peek().value())) {
+            }
         }
 
         m_index = 0;
